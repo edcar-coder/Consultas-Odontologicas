@@ -1,9 +1,9 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors')
-const { sequelize } = require('./src/config/configDB');
-const authRoute = require('./src/modulos/autenticacao/router/autenicacao.route')
-const consultaRoute = require('./src/modulos/consultas/routers/consulta.route')
+const { sequelize } = require('./src/config/configDb');
+const authRoute = require('./src/modulos/autenticacao/router/autenticacao.route')
+const consultaRoute = require('./src/modulos/consulta/router/consulta.route')
 // Configuração do banco de dados
 dotenv.config(); // Carrega variáveis de ambiente do arquivo .env
 

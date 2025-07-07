@@ -3,7 +3,25 @@ const Consulta = require("../models/consultaModel");
 
 class ConsultaController {
   
-  static async cadastrar(req, res) {
+  static async cadastrarconsulta(req, res) {
+    try {
+      const { nome, email } = req.body;
+      if (!nome || !email) {
+        return res
+          .status(400)
+          .json({ msg: "Todos os campos devem ser preenchidos!" });
+      }
+
+      await Consulta.create({ nome, email });
+      res.status(200).json({ msg: "Consulta criada com sucesso" });
+    } catch (error) {
+      res.status(500).json({
+        msg: "Erro do servidor. Tente novamente mais tarde!",
+        erro: error.message,
+      });
+    }
+  }
+   static async cadastrarconsulta(req, res) {
     try {
       const { nome, email } = req.body;
       if (!nome || !email) {
@@ -22,7 +40,7 @@ class ConsultaController {
     }
   }
 
-  static async perfil(req, res) {
+  static async usuario(req, res) {
     try {
       const { consultaID } = req.usuario; 
       const consulta = await Consulta.findOne({
@@ -31,7 +49,7 @@ class ConsultaController {
       });
 
       if (!consulta) {
-        return res.status(401).json({ msg: "Não existe consulta cadastrada!" });
+        return res.status(401).json({ msg: "Não existe consulta cadastrada para esse usuario!" });
       }
 
       res.status(200).json(consulta);

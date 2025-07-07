@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const dotenv = require("dotenv");
 dotenv.config();
-const Consulta = require("../../consultas/models/consultaModel");
+const Usuario = require("../../usuario/controller/usuario.controller");
 
 // Definindo variaveis de ambiente para TEMPO_ACESS_TOKEN e TEMPO_REFRESH_TOKEN
 const tempo_acess_token = process.env.TEMPO_ACESS_TOKEN;
@@ -30,7 +30,7 @@ class AutenticacaoController {
           .status(400)
           .json({ msg: "É necessario informar nome e email para login" });
       }
-      const usuario = await Consulta.findOne({
+      const usuario = await Usuario.findOne({
         where: { nome, email }, // Verifica nome e email
       });
       if (!usuario) {
