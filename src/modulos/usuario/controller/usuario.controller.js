@@ -4,8 +4,8 @@ const bcrypt =require('bcryptjs')
 class UsuarioController {
   static async cadastrar(req, res) {
     try {
-      const { nome, email } = req.body;
-      if (!nome || !email ){
+      const { nome, email, senha } = req.body;
+      if (!nome || !email || !senha ){
         return res
           .status(400)
           .json({ msg: "Todos os campos devem serem preenchidos!" });

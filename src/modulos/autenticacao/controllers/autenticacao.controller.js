@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const Usuario = require("../../usuario/controller/usuario.controller");
 
+
 // Definindo variaveis de ambiente para TEMPO_ACESS_TOKEN e TEMPO_REFRESH_TOKEN
 const tempo_acess_token = process.env.TEMPO_ACESS_TOKEN;
 const tempo_refresh_token = process.env.TEMPO_REFRESH_TOKEN;
@@ -24,14 +25,14 @@ class AutenticacaoController {
 
   static async login(req, res) {
     try {
-      const { nome, email } = req.body;
-      if (!nome || !email) {
+      const { nome, email, senha } = req.body;
+      if (!nome || !email || !senha) {
         return res
           .status(400)
           .json({ msg: "É necessario informar nome e email para login" });
       }
       const usuario = await Usuario.findOne({
-        where: { nome, email }, // Verifica nome e email
+        where: { nome, email, senha } // Verifica nome e email
       });
       if (!usuario) {
         return res.status(401).json({ msg: "Usuario não encontrado!" });
@@ -43,6 +44,7 @@ class AutenticacaoController {
       const dadosConsulta= {
         nome: usuario.nome,
         email: usuario.email, // Adicione isso
+        senha: usuario.senha, // Adicione isso se necessário para o token
         papel: "consulta",
       };
 
@@ -86,6 +88,7 @@ class AutenticacaoController {
         const dadosConsulta = {
           nome: usuario.nome,
           email: usuario.email, // Adicione isso
+          senha: usuario.senha, 
           papel: "consulta",
         };
 
