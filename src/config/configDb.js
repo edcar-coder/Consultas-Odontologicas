@@ -1,7 +1,8 @@
+// src/config/conexao.js
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
-const sequelize = new Sequelize(
+const sequelize = new Sequelize( 
   process.env.DB_DATABASE,
   process.env.DB_USER,
   process.env.DB_PASSWORD,
@@ -9,9 +10,8 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     dialect: 'postgres',
-    logging: false, // opcional
+    logging: false,
   }
 );
 
 module.exports = { sequelize };
-// Export the sequelize instance for use in other modules

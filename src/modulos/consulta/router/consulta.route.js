@@ -1,15 +1,11 @@
 const express = require('express');
-const ConsultaController = require('../controllers/consultaController');
-
 const router = express.Router();
+const ConsultaController = require('../controllers/consulta.controller'); // Corrija o nome se estiver diferente
 
-// rota de cadastro
-router.post('/cadastrar', ConsultaController.cadastrar)
-
-// rota de cadastro
-router.post('/cadastrar', ConsultaController.cadastrar)
-
-// rota de perfil
-router.get('/perfil', AutenticacaoUsuario.autenticarToken, ConsultaController.perfil)
+// Rotas
+router.post('/cadastrar', ConsultaController.cadastrarconsulta);
+router.get('/usuario', ConsultaController.usuario);
+router.get('/listar', ConsultaController.listarConsultas);
+router.get('/buscar', ConsultaController.consultarPorNome);
 
 module.exports = router;

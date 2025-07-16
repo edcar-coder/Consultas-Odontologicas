@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const { sequelize } = require("../../../config/configDb");
+const { sequelize } = require('../../../config/configDb');  // <--- caminho corrigido
 
 const Usuario = sequelize.define(
   "Usuario",
@@ -27,6 +27,11 @@ const Usuario = sequelize.define(
           msg: "A senha deve ter no mínimo 8 caracteres, com letra maiúscula, minúscula, número e caractere especial.",
         },
       },
+    },
+    tipo: {
+      type: DataTypes.ENUM("paciente"),
+      allowNull: false,
+      defaultValue: "paciente",
     },
   },
   {

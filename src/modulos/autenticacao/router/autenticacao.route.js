@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router()
-const AutenticacaoController = require('../controller/autenticacao.controller')
+const AutenticacaoController = require('../controllers/autenticacao.controller')
+
+
 // rota publica de login
 router.post('/login', AutenticacaoController.login);
 

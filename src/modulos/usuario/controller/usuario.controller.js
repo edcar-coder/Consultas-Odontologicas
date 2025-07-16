@@ -1,5 +1,5 @@
 const { where } = require("sequelize");
-const Aluno = require("../models/usuarioModel");
+const Usuario = require("../models/usuarioModel");
 const bcrypt =require('bcryptjs')
 class UsuarioController {
   static async cadastrar(req, res) {

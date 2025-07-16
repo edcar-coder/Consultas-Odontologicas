@@ -1,42 +1,51 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const cors = require('cors')
-const { sequelize } = require('./src/config/configDb');
-const authRoute = require('./src/modulos/autenticacao/router/autenticacao.route')
-const consultaRoute = require('./src/modulos/consulta/router/consulta.route')
-// Configuração do banco de dados
-dotenv.config(); // Carrega variáveis de ambiente do arquivo .env
+const cors = require('cors');
+const { sequelize } = require('./src/config/configDb'); // Correção na importação
 
+// Importando as rotas
+const authRoute = require('./src/modulos/autenticacao/router/autenticacao.route');
+const consultaRoute = require('./src/modulos/consulta/router/consulta.route');
+
+// Carrega variáveis de ambiente do arquivo .env
+dotenv.config();
+
+// Criação do servidor Express
 const app = express();
+
+// Configuração do CORS para o frontend
 app.use(cors({
-    origin: 'http://localhost:5173', // frontend React
-    credentials: true               // permite enviar cookies (como refreshToken)
+  origin: 'http://localhost:5173', // Altere para a URL do seu frontend
+  credentials: true,               // Permite enviar cookies (como refreshToken)
 }));
 
+// Permite que o Express entenda JSON
 app.use(express.json());
 
-// rotas de consulta
-// http:localhost:3001/api/consultas/cadastrar
-// http:localhost:3001/api/cadastrar
-// http:localhost:3001/api/perfil
-app.use('/api/', consultaRoute)
+// Configuração das rotas
+// Rota para consultas
+app.use('/api/', consultaRoute);
 
-// rotas de autenticação
-// http:localhost:3001/api/login
-// http:localhost:3001/api/logout
-// http:localhost:3001/api/refresh-token
-app.use('/api/', authRoute)
+// Rota para autenticação
+app.use('/api/', authRoute);
 
-const PORTA = process.env.PORTA;
+// Definindo a porta a partir do .env
+const PORTA = process.env.PORTA || 3001; // Caso a porta não seja definida, usa 3001
+
+// Inicializa o servidor na porta especificada
 app.listen(PORTA, async () => {
-    try {
-        await sequelize.authenticate();
-        console.log('Conexão com o banco de dados estabelecida com sucesso.');
+  try {
+    // Verifica a conexão com o banco de dados
+    await sequelize.authenticate();
+    console.log('Conexão com o banco de dados estabelecida com sucesso.');
 
-        await sequelize.sync({ force: false, alter:false });
-        console.log('Banco de dados sincronizado com sucesso.');
-    } catch (error) {
-        console.error('Erro ao conectar ou sincronizar o banco de dados:', error);
-    }
-    console.log(`Servidor rodando na porta ${PORTA}`);
+    // Sincroniza os modelos com o banco de dados (sem força para evitar perda de dados)
+    await sequelize.sync({ force: false, alter: false });
+    console.log('Banco de dados sincronizado com sucesso.');
+  } catch (error) {
+    console.error('Erro ao conectar ou sincronizar o banco de dados:', error);
+  }
+  
+  // Inicia o servidor
+  console.log(`Servidor rodando na porta ${PORTA}`);
 });
