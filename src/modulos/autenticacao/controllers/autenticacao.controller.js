@@ -101,9 +101,10 @@ class AutenticacaoController {
   static async sair(req, res) {
     try {
       res.clearCookie("refreshToken", {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "development",
+        httpOnly: false,
+        secure: true, // Use true em produção para HTTPS
         sameSite: "strict",
+        maxAge: 1 * 24 * 60 * 1000 // Define o cookie para expirar imediatamente
       });
       res.status(200).json({ msg: "Logout realizado com sucesso" });
     } catch (error) {

@@ -19,7 +19,12 @@ const Dentista = sequelize.define('Dentista', {
   especialidade: {
     type: DataTypes.STRING,
     allowNull: true,
-  }
+  },
+}, 
+{
+    tableName: "dentista",
+    createdAt: "criado_em",
+    updatedAt: "atualizado_em",
 });
 
 module.exports = Dentista;

@@ -1,7 +1,9 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const cors = require('cors');
+dotenv.config();// Importando o Sequelize e a configuração do banco de dados
+
 const { sequelize } = require('./src/config/configDb'); // Correção na importação
+
 
 // Importando as rotas
 const authRoute = require('./src/modulos/autenticacao/router/autenticacao.route');
