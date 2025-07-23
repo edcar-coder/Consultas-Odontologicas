@@ -1,16 +1,10 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { validationResult } = require('express-validator');
 require('dotenv').config();
 
 const Dentista = require('../models/dentista.model');
 
 exports.cadastrar = async (req, res) => {
-  const erros = validationResult(req);
-  if (!erros.isEmpty()) {
-    return res.status(400).json({ erros: erros.array() });
-  }
-
   const { nome, email, senha, especialidade } = req.body;
 
   try {

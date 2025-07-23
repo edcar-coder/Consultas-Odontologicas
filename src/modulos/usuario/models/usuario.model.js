@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const { sequelize } = require('../../../config/configDb');  // <--- caminho corrigido
+const  sequelize  = require('../../../config/configDb');  // <--- caminho corrigido
 
 const User = sequelize.define(
   'User',
@@ -36,13 +36,13 @@ const User = sequelize.define(
       },
     },
     tipo: {
-      type: DataTypes.ENUM("Dentista", "funcionário", "paciente"),
+      type: DataTypes.ENUM("dentista", "administrador", "paciente"),
       allowNull: false,
       defaultValue: "paciente",
       validate: {
         isIn: {
-          args: [["Dentista", "funcionário", "paciente"]],
-          msg: "O tipo deve ser 'Dentista', 'funcionário' ou 'paciente'"
+          args: [["Dentista", "administrador", "paciente"]],
+          msg: "O tipo deve ser 'Dentista', 'administrador' ou 'paciente'"
         },
       },
     },

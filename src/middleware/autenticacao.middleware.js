@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const dotenv = require("dotenv");
 dotenv.config();
-const Usuario = require("../../usuario/controller/usuario.controller");
+const Usuario = require("../modulos/usuario/models/usuario.model");
 
 
 // Definindo variaveis de ambiente para TEMPO_ACESS_TOKEN e TEMPO_REFRESH_TOKEN

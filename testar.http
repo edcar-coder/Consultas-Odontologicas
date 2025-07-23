@@ -1,0 +1,11 @@
+### Teste do endpoint de cadastro de usuário
+POST http://localhost:3001/cadastrar
+Content-Type: application/json
+
+{
+  "id": 1,
+  "nome": "João Silva",
+  "papel": "admin",
+  "email": "joao.silva@example.com",
+  "senha": "senha123"
+}

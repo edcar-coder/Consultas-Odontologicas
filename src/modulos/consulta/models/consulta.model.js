@@ -1,6 +1,6 @@
 // src/modulos/consulta/models/consulta.model.js
 const { DataTypes } = require('sequelize');
-const { sequelize } = require('../../../config/configDb');  // <--- caminho corrigido
+const  sequelize  = require('../../../config/configDb');  // <--- caminho corrigido
 
 const Consulta = sequelize.define('Consulta', {
   paciente: {

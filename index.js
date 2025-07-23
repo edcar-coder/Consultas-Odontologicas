@@ -1,53 +1,29 @@
-const express = require('express');
-const dotenv = require('dotenv');
-dotenv.config();// Importando o Sequelize e a configuração do banco de dados
-
-const { sequelize } = require('./src/config/configDb'); // Correção na importação
-
-
-// Importando as rotas
-const authRoute = require('./src/modulos/autenticacao/router/autenticacao.route');
-const consultaRoute = require('./src/modulos/consulta/router/consulta.route');
-
-// Carrega variáveis de ambiente do arquivo .env
+const express = require("express");
+const dotenv = require("dotenv");
+const routeDentista = require('./src/modulos/dentista/routers/dentista.route');
+const routeUusario =  require('./src/modulos/usuario/router/usuario.route')
 dotenv.config();
 
-// Criação do servidor Express
+const sequelize = require("./src/config/configDb");
+
 const app = express();
+const port = process.env.PORTA;
 
-// Configuração do CORS para o frontend
-app.use(cors({
-  origin: 'http://localhost:5173', // Altere para a URL do seu frontend
-  credentials: true,               // Permite enviar cookies (como refreshToken)
-}));
-
-// Permite que o Express entenda JSON
+// Middleware para processar JSON
 app.use(express.json());
 
-// Configuração das rotas
-// Rota para consultas
-app.use('/api/', consultaRoute);
+// Rota para dentista
+app.use(routeDentista);
 
-// Rota para autenticação
-app.use('/api/', authRoute);
+// rota para usuário
+app.use(routeUusario);
 
-// Definindo a porta a partir do .env
-const PORTA = process.env.PORTA || 3001; // Caso a porta não seja definida, usa 3001
-
-// Inicializa o servidor na porta especificada
-app.listen(PORTA, async () => {
+app.listen(port, async () => {
   try {
-    // Verifica a conexão com o banco de dados
     await sequelize.authenticate();
-    console.log('Conexão com o banco de dados estabelecida com sucesso.');
-
-    // Sincroniza os modelos com o banco de dados (sem força para evitar perda de dados)
-    await sequelize.sync({ force: false, alter: false });
-    console.log('Banco de dados sincronizado com sucesso.');
+    console.log("A conexão foi estabelecida com sucesso.");
   } catch (error) {
-    console.error('Erro ao conectar ou sincronizar o banco de dados:', error);
+    console.error("Não é possível conectar ao banco de dados:", error.message);
   }
-  
-  // Inicia o servidor
-  console.log(`Servidor rodando na porta ${PORTA}`);
+  console.log(`Servidor executando na porta ${port}`);
 });
