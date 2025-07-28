@@ -23,5 +23,13 @@
   },
   "devDependencies": {
     "sequelize-cli": "^6.6.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edcar-coder/Consultas-Odontologicas.git"
+  },
+  "bugs": {
+    "url": "https://github.com/edcar-coder/Consultas-Odontologicas/issues"
+  },
+  "homepage": "https://github.com/edcar-coder/Consultas-Odontologicas#readme"
 }
