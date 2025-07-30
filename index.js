@@ -1,22 +1,21 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const routeDentista = require('./src/modulos/dentista/routers/dentista.route');
-const routeUusario =  require('./src/modulos/usuario/router/usuario.route')
+const  sequelize  = require("./src/config/configDb");
+const usuarioRoute = require('./src/modulos/usuario/routes/usuario.route')
+const autenticacaoRoute = require('./src/modulos/autenticacao/routes/autenticacao.route')
+const consultaRoute = require('./src/modulos/consulta/routes/consulta.route')
 dotenv.config();
-
-const sequelize = require("./src/config/configDb");
 
 const app = express();
 const port = process.env.PORTA;
 
-// Middleware para processar JSON
-app.use(express.json());
+app.use(express.json())
 
-// Rota para dentista
-app.use(routeDentista);
+app.use(usuarioRoute)
+app.use(autenticacaoRoute)
+app.use(consultaRoute)
 
-// rota para usuário
-app.use(routeUusario);
+
 
 app.listen(port, async () => {
   try {

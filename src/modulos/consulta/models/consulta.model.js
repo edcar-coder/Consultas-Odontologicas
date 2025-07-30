@@ -3,6 +3,10 @@ const { DataTypes } = require('sequelize');
 const  sequelize  = require('../../../config/configDb');  // <--- caminho corrigido
 
 const Consulta = sequelize.define('Consulta', {
+  id: {
+    type: DataTypes.STRING(255),
+    primaryKey: true,
+  },
   paciente: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -15,9 +19,12 @@ const Consulta = sequelize.define('Consulta', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-}, {
+}, 
+{
   tableName: 'consultas',
-  timestamps: false,
+  createdAt:'criado_em',
+  updatedAt:'atualizado_em'
+
 });
 
 module.exports = Consulta;

@@ -5,7 +5,7 @@ const User = sequelize.define(
   'User',
   {
     id: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(40),
       primaryKey: true,
     },
     nome: {

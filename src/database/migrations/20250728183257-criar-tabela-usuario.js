@@ -10,16 +10,16 @@ module.exports = {
         primaryKey: true,
       },
       nome: {
-        type: Sequelize.STRING(100),
+        type: Sequelize.UUID(100),
         allowNull: false,
       },
       email: {
-        type: Sequelize.STRING(100),
+        type: Sequelize.UUID(100),
         allowNull: false,
         unique: true,
       },
       senha: {
-        type: Sequelize.STRING,
+        type: Sequelize.UUID,
         allowNull: false,
       },
       tipo: {

@@ -1,40 +1,45 @@
 'use strict';
-
 const { v4: uuidv4 } = require('uuid');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    const senhaPadrao = 'Senha@123';
-    const senhaHash = await bcrypt.hash(senhaPadrao, 10);
+  up: async (queryInterface, Sequelize) => {
+    const hashedPassword1 = await bcrypt.hash('SenhaForte@123', 10);
+    const hashedPassword2 = await bcrypt.hash('OutroForte@456', 10);
+    const hashedPassword3 = await bcrypt.hash('Admin@789', 10);
 
-    await queryInterface.bulkInsert('usuario', [
+    return queryInterface.bulkInsert('usuario', [
       {
         id: uuidv4(),
-        nome: 'João Silva',
-        email: 'joao@exemplo.com',
-        senha: senhaHash,
+        nome: 'João da Silva',
+        email: 'joao@example.com',
+        senha: hashedPassword1,
         tipo: 'paciente',
         criado_em: new Date(),
-        atualizado_em: new Date()
+        atualizado_em: new Date(),
       },
       {
         id: uuidv4(),
-        nome: 'Maria Oliveira',
-        email: 'maria@exemplo.com',
-        senha: senhaHash,
+        nome: 'Dra. Maria Souza',
+        email: 'maria@example.com',
+        senha: hashedPassword2,
         tipo: 'dentista',
         criado_em: new Date(),
-        atualizado_em: new Date()
+        atualizado_em: new Date(),
       },
       {
         id: uuidv4(),
-        nome: 'Carlos Souza',
-        email: 'carlos@exemplo.com',
-        senha: senhaHash,
+        nome: 'Admin do Sistema',
+        email: 'admin@example.com',
+        senha: hashedPassword3,
         tipo: 'administrador',
         criado_em: new Date(),
-        atualizado_em:_
-      }
-      
+        atualizado_em: new Date(),
+      },
+    ]);
+  },
+
+  down: async (queryInterface, Sequelize) => {
+    return queryInterface.bulkDelete('usuario', null, {});
+  }
+};
